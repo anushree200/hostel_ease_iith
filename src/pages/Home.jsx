@@ -46,7 +46,7 @@ const Home = () => {
   }, [hostel]);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-hostel-bg">
       <div className="p-6 md:p-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
           <button

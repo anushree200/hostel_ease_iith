@@ -75,7 +75,7 @@ const RoomSwap = () => {
   };
 
   return (
-    <div className="min-h-screen bg-cover bg-center bg-no-repeat bg-[url('/images/bg.jpg')] py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-cover bg-center bg-no-repeat bg-hostel-bg py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto bg-white/90 rounded-xl shadow-lg p-8">
         <h2 className="text-2xl font-bold text-center text-brown-800 mb-6">Room Swap Application</h2>
 

@@ -28,7 +28,7 @@ const MyComplaints = () => {
   }, [user]);
 
   return (
-    <div className="p-6 bg-background min-h-screen transition-all duration-300">
+    <div className="p-6 bg-hostel-bg min-h-screen transition-all duration-300">
       <h2 className="text-2xl font-bold mb-6 text-primary">My Complaints</h2>
       <ul className="space-y-4">
         {myComplaints.map((c) => (

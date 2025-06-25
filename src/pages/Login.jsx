@@ -48,7 +48,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-background p-6 transition-all duration-300">
+    <div className="min-h-screen flex flex-col justify-center items-center bg-hostel-bg p-6 transition-all duration-300">
       <h2 className="text-3xl font-bold mb-6 text-textprimary">
         Welcome to Hostel Ease
       </h2>
