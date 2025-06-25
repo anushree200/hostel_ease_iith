@@ -46,8 +46,7 @@ export const auth = getAuth(app);
 ```
 
 ### Enable Firestore and Authentication
-Go to Build > Firestore Database, click on Create Database
-Then go to Build > Authentication, and enable Google Sign-in or Email/Password based on your needs
+Go to Build > Firestore Database, click on Create Database. Then go to Build > Authentication, and enable Google Sign-in or Email/Password based on your needs
 
 ### Use Firebase in Components
 Use db for Firestore and auth for Authentication throughout your React app:
