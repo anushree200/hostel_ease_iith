@@ -2,8 +2,6 @@
 
 A web app designed to manage hostel complaints, notices, and room swap requests for students.
 
----
-
 ## Firebase Setup
 
 To connect and use Firebase with this project, follow these steps:
