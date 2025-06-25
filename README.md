@@ -1,12 +1,58 @@
-# React + Vite
+# Hostel Ease – Smooth Functioning of Hostels
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web app designed to manage hostel complaints, notices, and room swap requests for students.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Firebase Setup
 
-## Expanding the ESLint configuration
+To connect and use Firebase with this project, follow these steps:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Create a Firebase Project
+- Go to the [Firebase Console](https://console.firebase.google.com/)
+- Click **“Add Project”** and follow the on-screen setup instructions
+
+### Register Your Web App
+- In the Firebase dashboard, click the **Web (`</>`)** icon to register your app
+- Provide a name like `hostel-ease-web`
+- Firebase will give you a configuration object (`apiKey`, `projectId`, etc.)
+
+### Install Firebase SDK
+In your terminal at the root of your project, run:
+
+```bash
+npm install firebase
+```
+
+### Initialize Firebase
+Create a file: src/utils/firebase.js
+
+Paste your config inside this file:
+```
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID",
+};
+
+const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
+export const auth = getAuth(app);
+```
+
+### Enable Firestore and Authentication
+Go to Build > Firestore Database, click on Create Database
+Then go to Build > Authentication, and enable Google Sign-in or Email/Password based on your needs
+
+### Use Firebase in Components
+Use db for Firestore and auth for Authentication throughout your React app:
+```
+import { db, auth } from "../utils/firebase";
+```
