@@ -4,11 +4,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        brown: {
-          600: "#6B4226",
-          700: "#5A3621",
-          800: "#4C2F1E",
-        },
+        primary: "#7C3A7E",
+        secondary: "#FFD6E0",
+        accent: "#FFB454",
+        background: "#FFF7ED",
+        card: "#FFFFFF",
+        buttonhover: "#5C2552",
+        textprimary: "#3D2C29",
+        textsecondary: "#7C3A7E",
+        textAccent: "#FFB454",
+        success: "#B7A16A",
+        error: "#E4576E",
       },
     },
   },

@@ -1,49 +1,76 @@
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider, db } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
+import { useAuth } from "../context/AuthContext";
+
+const HOSTELS = ["Block A", "Block B", "Block C"];
 
 const Login = () => {
   const [hostel, setHostel] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { user } = useAuth();
+
+  if (user) {
+    navigate("/");
+    return null;
+  }
 
   const loginWithGoogle = async () => {
+    setLoading(true);
     try {
       const result = await signInWithPopup(auth, provider);
       const email = result.user.email;
       if (!email.endsWith("@iith.ac.in")) {
         alert("Only IITH accounts are allowed.");
+        await auth.signOut();
+        setLoading(false);
+        return;
+      }
+      if (!hostel) {
+        alert("Please select your hostel.");
+        await auth.signOut();
+        setLoading(false);
         return;
       }
       await setDoc(doc(db, "users", result.user.uid), {
         name: result.user.displayName,
         email: result.user.email,
-        hostel: hostel,
+        hostel,
       });
       navigate("/");
     } catch (error) {
-      console.error(error);
+      alert("Login failed.");
     }
+    setLoading(false);
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100 p-6">
-      <h2 className="text-3xl font-bold mb-6">Welcome to Hostel Ease</h2>
+    <div className="min-h-screen flex flex-col justify-center items-center bg-background p-6 transition-all duration-300">
+      <h2 className="text-3xl font-bold mb-6 text-textprimary">
+        Welcome to Hostel Ease
+      </h2>
       <select
         onChange={(e) => setHostel(e.target.value)}
-        className="p-2 border rounded mb-4 cursor-pointer"
+        className="p-2 border rounded mb-4 cursor-pointer transition-all duration-200"
+        value={hostel}
+        disabled={loading}
       >
         <option value="">Select Hostel</option>
-        <option value="Block A">Block A</option>
-        <option value="Block B">Block B</option>
-        <option value="Block C">Block C</option>
+        {HOSTELS.map((h) => (
+          <option key={h} value={h}>
+            {h}
+          </option>
+        ))}
       </select>
       <button
         onClick={loginWithGoogle}
-        className="bg-brown-700 text-black underline px-6 py-2 rounded hover:bg-brown-800"
+        className="bg-primary text-white px-6 py-2 rounded hover:bg-buttonhover transition-all duration-200"
+        disabled={loading}
       >
-        Login with Google
+        {loading ? "Logging in..." : "Login with Google"}
       </button>
     </div>
   );
