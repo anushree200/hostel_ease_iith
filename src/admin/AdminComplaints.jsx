@@ -36,11 +36,11 @@ const AdminComplaints = () => {
       <ul className="space-y-4">
         {complaints.map((c) => (
           <li key={c.id} className="bg-card p-4 rounded-lg shadow">
-            <div className="font-semibold text-accent mb-1">
+            <div className="font-semibold text-textsecondary mb-1">
               {c.issueType} - Room/Pod: {c.roomOrPod}
             </div>
             <div className="text-textprimary mb-2">{c.description}</div>
-            <div className="text-xs text-textAccent mb-2">
+            <div className="text-xs text-textsecondary mb-2">
               By {c.name} ({c.email}) | Hostel: {c.hostel} |{" "}
               {c.timestamp?.toDate
                 ? new Date(c.timestamp.toDate()).toLocaleString()

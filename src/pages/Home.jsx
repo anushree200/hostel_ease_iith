@@ -51,19 +51,19 @@ const Home = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
           <button
             onClick={() => navigate("/raise-complaint")}
-            className="bg-accent hover:bg-buttonhover text-white py-6 text-xl rounded-lg w-full shadow-lg transition-all duration-200"
+            className="bg-accent hover:bg-buttonhover text-primary py-6 text-xl rounded-lg w-full shadow-lg font-semibold transition-all duration-200"
           >
             Raise Complaint
           </button>
           <button
             onClick={() => navigate("/my-complaints")}
-            className="bg-accent hover:bg-buttonhover text-white py-6 text-xl rounded-lg w-full shadow-lg transition-all duration-200"
+            className="bg-accent hover:bg-buttonhover text-primary py-6 text-xl rounded-lg w-full shadow-lg font-semibold transition-all duration-200"
           >
             My Complaints
           </button>
           <button
             onClick={() => navigate("/room-swap")}
-            className="bg-accent hover:bg-buttonhover text-white py-6 text-xl rounded-lg w-full shadow-lg transition-all duration-200"
+            className="bg-accent hover:bg-buttonhover text-primary py-6 text-xl rounded-lg w-full shadow-lg font-semibold transition-all duration-200"
           >
             Room Swap Request
           </button>
@@ -87,7 +87,7 @@ const Home = () => {
                   <div className="text-textprimary">
                     {complaint.description}
                   </div>
-                  <div className="text-xs text-textAccent mt-1">
+                  <div className="text-xs font-semibold text-textsecondary mt-1">
                     By {complaint.name} on{" "}
                     {complaint.timestamp?.toDate
                       ? new Date(complaint.timestamp.toDate()).toLocaleString()
@@ -98,7 +98,7 @@ const Home = () => {
                       complaint.status === "resolved"
                         ? "bg-success text-white"
                         : complaint.status === "in progress"
-                        ? "bg-accent text-white"
+                        ? "bg-accent text-primary"
                         : "bg-secondary text-textprimary"
                     }`}
                   >
@@ -121,12 +121,14 @@ const Home = () => {
             ) : (
               notices.map((n) => (
                 <li key={n.id}>
-                  <div className="font-semibold text-secondary">{n.title}</div>
-                  <div>{n.content}</div>
-                  <div className="text-xs text-textAccent mt-1">
-                    {n.timestamp?.toDate
-                      ? new Date(n.timestamp.toDate()).toLocaleString()
-                      : ""}
+                  <div className="bg-[#F5F5F5] p-3">
+                    <div className="font-semibold text-primary">{n.title}</div>
+                    <div className="text-textprimary">{n.content}</div>
+                    <div className="text-xs text-textsecondary mt-1">
+                      {n.timestamp?.toDate
+                        ? new Date(n.timestamp.toDate()).toLocaleString()
+                        : ""}
+                    </div>
                   </div>
                 </li>
               ))

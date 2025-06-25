@@ -5,7 +5,27 @@ import { useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
 import { useAuth } from "../context/AuthContext";
 
-const HOSTELS = ["Block A", "Block B", "Block C"];
+const HOSTELS = [
+  "Anandi",
+  "Aryabhatta",
+  "Bhabha",
+  "Bhaskara",
+  "Brahmagupta",
+  "Bhaskara",
+  "Charaka",
+  "Gargi",
+  "Kautilya",
+  "Raman",
+  "Ramanuja",
+  "Ramanujan",
+  "Sarabhai",
+  "Sarojini Naidu",
+  "Susruta",
+  "Varahamihira",
+  "Visveswaraya",
+  "Vivekananda",
+  "Vyasa",
+];
 
 const Login = () => {
   const [hostel, setHostel] = useState("");

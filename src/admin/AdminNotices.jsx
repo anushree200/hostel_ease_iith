@@ -112,11 +112,13 @@ const AdminNotices = () => {
           <li key={n.id} className="bg-secondary p-3 rounded shadow">
             <div className="font-semibold text-primary">{n.title}</div>
             <div className="text-textprimary">{n.content}</div>
-            <div className="text-xs text-textAccent mt-1">
-              {n.hostels.includes("all")
-                ? "All Hostels"
-                : `Hostels: ${n.hostels.join(", ")}`}{" "}
-              |{" "}
+            <div className="text-xs text-primary mt-1">
+              {Array.isArray(n.hostels)
+                ? n.hostels.includes("all")
+                  ? "All Hostels"
+                  : `Hostels: ${n.hostels.join(", ")}`
+                : "Hostels: N/A"}
+              {" | "}
               {n.timestamp?.toDate
                 ? new Date(n.timestamp.toDate()).toLocaleString()
                 : ""}

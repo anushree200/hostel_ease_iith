@@ -51,7 +51,10 @@ const RoomSwap = () => {
     const unsubscribe = onSnapshot(
       collection(db, "roomSwapApplications"),
       (snapshot) => {
-        const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        const data = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         setSwapList(data);
       }
     );
@@ -77,11 +80,15 @@ const RoomSwap = () => {
   return (
     <div className="min-h-screen bg-cover bg-center bg-no-repeat bg-[url('/images/bg.jpg')] py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto bg-white/90 rounded-xl shadow-lg p-8">
-        <h2 className="text-2xl font-bold text-center text-brown-800 mb-6">Room Swap Application</h2>
+        <h2 className="text-2xl font-bold text-center text-textsecondary mb-6">
+          Room Swap Application
+        </h2>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Email</label>
+            <label className="block text-sm font-medium text-textprimary">
+              Email
+            </label>
             <input
               type="text"
               value={user.email}
@@ -91,7 +98,9 @@ const RoomSwap = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Hostel</label>
+            <label className="block text-sm font-medium text-textprimary">
+              Hostel
+            </label>
             <input
               type="text"
               value={hostel || "Not selected"}
@@ -101,7 +110,9 @@ const RoomSwap = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Current Room Number</label>
+            <label className="block text-sm font-medium text-textprimary">
+              Current Room Number
+            </label>
             <input
               type="text"
               value={currentRoom}
@@ -113,7 +124,9 @@ const RoomSwap = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Reason for Swap</label>
+            <label className="block text-sm font-medium text-textprimary">
+              Reason for Swap
+            </label>
             <textarea
               value={reason}
               onChange={(e) => setReason(e.target.value)}
@@ -127,7 +140,7 @@ const RoomSwap = () => {
           <div className="text-center">
             <button
               type="submit"
-              className="bg-brown-700 text-white px-6 py-2 rounded-md hover:bg-brown-800 transition"
+              className="bg-primary text-white px-6 py-2 rounded-md hover:bg-buttonhover transition"
             >
               Submit Application
             </button>
@@ -135,15 +148,21 @@ const RoomSwap = () => {
         </form>
 
         <div className="mt-10">
-          <h3 className="text-xl font-semibold text-brown-800 mb-4">Available Room Swap Requests</h3>
+          <h3 className="text-xl font-semibold text-brown-800 mb-4">
+            Available Room Swap Requests
+          </h3>
           {swapList.length === 0 ? (
             <p>No requests yet.</p>
           ) : (
             <ul className="space-y-3">
               {swapList.map((swap) => (
-                <li key={swap.id} className="bg-white p-4 rounded-lg border border-gray-300 shadow-sm">
+                <li
+                  key={swap.id}
+                  className="bg-white p-4 rounded-lg border border-gray-300 shadow-sm"
+                >
                   <p>
-                    <strong>{swap.name}</strong> from <strong>Room {swap.currentRoom}</strong>
+                    <strong>{swap.name}</strong> from{" "}
+                    <strong>Room {swap.currentRoom}</strong>
                   </p>
                   <p className="text-sm text-gray-600">Reason: {swap.reason}</p>
                   <button

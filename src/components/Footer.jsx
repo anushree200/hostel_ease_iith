@@ -11,15 +11,15 @@ const Footer = () => (
       </div>
       <div className="flex space-x-4 text-sm">
         <a
-          href="mailto:support@hostelease.com"
+          href="mailto:office.hostel@iith.ac.in"
           className="hover:text-accent transition"
         >
           Contact Support
         </a>
-        <a href="/privacy" className="hover:text-accent transition">
+        <a href="/" className="hover:text-accent transition">
           Privacy Policy
         </a>
-        <a href="/terms" className="hover:text-accent transition">
+        <a href="/" className="hover:text-accent transition">
           Terms of Service
         </a>
       </div>

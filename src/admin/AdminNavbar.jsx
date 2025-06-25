@@ -17,19 +17,19 @@ const AdminNavbar = () => {
         {admin && (
           <div className="flex items-center space-x-6">
             <button
-              className="text-background hover:text-accent transition"
+              className="text-background font-bold hover:text-accent transition"
               onClick={() => navigate("/admin/dashboard")}
             >
               Complaints
             </button>
             <button
-              className="text-background hover:text-accent transition"
+              className="text-background font-bold hover:text-accent transition"
               onClick={() => navigate("/admin/notices")}
             >
               Notices
             </button>
             <button
-              className="ml-4 bg-error text-white px-4 py-2 rounded hover:bg-accent transition"
+              className="ml-4 bg-error text-white font-bold px-4 py-2 rounded hover:bg-accent transition"
               onClick={logout}
             >
               Logout
