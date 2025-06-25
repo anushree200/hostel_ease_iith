@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
@@ -15,6 +15,9 @@ export default {
         textAccent: "#FFB454",
         success: "#B7A16A",
         error: "#E4576E",
+      },
+      backgroundImage: {
+        'hostel-bg': "url('/assets/IMG_0183.jpeg')",
       },
     },
   },

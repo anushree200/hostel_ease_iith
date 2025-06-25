@@ -37,7 +37,7 @@ const RaiseComplaint = () => {
   };
 
   return (
-    <div className=" bg-cover bg-center bg-no-repeat bg-[url('/images/bg.jpg')] py-12 px-4 sm:px-6 lg:px-8">
+    <div className=" bg-cover bg-center bg-no-repeat bg-hostel-bg py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto bg-card/90 rounded-xl shadow-lg p-8 transition-all duration-300">
         <h2 className="text-2xl font-bold text-center text-primary mb-6">
           Raise a Complaint
