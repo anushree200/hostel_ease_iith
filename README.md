@@ -30,42 +30,35 @@ Complaints and notices update live for all users
 
 ## 🚀 Getting Started
 1. Clone the Repository
-bash
-Copy code
+```
 git clone https://github.com/yourusername/hostel-ease.git
 cd hostel-ease
+```
 2. Install Dependencies
-bash
-Copy code
+```
 npm install
-🔧 Firebase Setup
-a. Create a Firebase Project
+```
+## Firebase Setup
+### Create a Firebase Project
 Go to Firebase Console
-
 Click “Add project” and follow the instructions
 
-b. Register Your Web App
+### Register Your Web App
 Click the Web (</>) icon in Firebase Console
-
 Register your app and copy the Firebase config object
 
-c. Enable Authentication
+### Enable Authentication
 Go to Authentication > Sign-in method
-
 Enable Google sign-in
 
-d. Enable Firestore
+### Enable Firestore
 Go to Firestore Database
-
 Click Create database
-
 Choose Test Mode for development
 
-e. Add Your Firebase Config
+### Add Your Firebase Config
 Create src/utils/firebase.js:
-
-js
-Copy code
+```
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
@@ -85,39 +78,33 @@ const provider = new GoogleAuthProvider();
 const db = getFirestore(app);
 
 export { app, auth, provider, db };
-f. Firestore Collections Structure
+```
+### Firestore Collections Structure
 Collection	Required Fields
 users	email, role (user or admin)
 complaints	hostel, description, status, timestamp, issueType, roomOrPod, uid, name, email
 notices	title, content, hostels (array, e.g., ["Block A"] or ["all"]), timestamp
 roomSwapApplications	email, name, hostel, currentRoom, reason, joinedUsers, timestamp
 
-g. Set Admin Users
+### Set Admin Users
 In Firestore users collection, manually set:
-
-json
-Copy code
+```
 {
   "role": "admin"
 }
+```
 For example, assign to hosteloffice@iith.ac.in.
 
-h. Create Firestore Indexes
+### Create Firestore Indexes
 You'll be prompted to create indexes when needed. Common ones:
-
 complaints: hostel + timestamp (descending)
-
 notices: hostels (array-contains-any) + timestamp (descending)
-
 my complaints: uid + timestamp (descending)
-
 Just click the provided link in the console error to auto-create.
 
-i. Security Rules (Recommended for Production)
+### Security Rules (Recommended for Production)
 Go to Firestore > Rules and replace with:
-
-text
-Copy code
+```
 rules_version = '2';
 
 service cloud.firestore {
@@ -144,41 +131,35 @@ service cloud.firestore {
     }
   }
 }
+```
 ## 💻 Run the App
-bash
-Copy code
+```
 npm run dev
+```
 ## 🔑 Portal Access
 Student Portal: http://localhost:5173/login
-
 Admin Portal: http://localhost:5173/admin/login
 (Login with an email having role: "admin")
 
 ## 📁 Project Structure
-bash
-Copy code
+```
 src/
 ├── pages/           # User-side pages
 ├── admin/           # Admin-specific pages
 ├── components/      # Reusable UI components (Navbar, Footer, etc.)
 ├── context/         # Context providers for Auth/Admin
 └── utils/           # Firebase config and helpers
+```
 ## 📦 Packages Used
 React – Frontend framework
-
 React Router DOM – Routing
-
 Firebase – Auth + Firestore
-
 Tailwind CSS – UI Styling
-
 Font Awesome – Icons
 
 ## 🖌️ Custom Styling Palette
 Tailwind CSS extended colors used:
-
-js
-Copy code
+```
 colors: {
   primary: "#7C3A7E",
   secondary: "#FFD6E0",
@@ -192,3 +173,4 @@ colors: {
   success: "#B7A16A",
   error: "#E4576E",
 }
+```
