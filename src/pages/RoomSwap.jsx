@@ -65,6 +65,11 @@ const RoomSwap = () => {
   }, []);
 
   const handleJoinRequest = async (docId) => {
+    const requesterroom = window.prompt("Enter your room number for requesting:");
+    if (!requesterroom) {
+      alert("Room number is required!");
+      return;
+    }
   try {
     const ref = doc(db, "roomSwapApplications", docId);
     const docSnap = await getDoc(ref);
@@ -86,6 +91,7 @@ const RoomSwap = () => {
         to_name: ownerName,
         from_name: user.displayName,
         from_email: user.email,
+        requesterroomno: requesterroom,
       },
       import.meta.env.VITE_EMAILJS_USERID
     );
