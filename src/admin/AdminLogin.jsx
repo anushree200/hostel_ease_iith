@@ -9,6 +9,7 @@ const ADMIN_EMAILS = [
   "warden@iith.ac.in",
   "manager@iith.ac.in",
   "ep23btech11018@iith.ac.in",
+  "co23btech11003@iith.ac.in"
 ];
 
 const AdminLogin = () => {

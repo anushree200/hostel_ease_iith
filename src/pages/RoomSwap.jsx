@@ -10,7 +10,10 @@ import {
   doc,
   updateDoc,
   arrayUnion,
+  getDoc
 } from "firebase/firestore";
+import emailjs from 'emailjs-com';
+import MyApplications from "./MyApplications";
 
 const RoomSwap = () => {
   const { user, hostel } = useAuth();
@@ -62,20 +65,40 @@ const RoomSwap = () => {
   }, []);
 
   const handleJoinRequest = async (docId) => {
-    try {
-      const ref = doc(db, "roomSwapApplications", docId);
-      await updateDoc(ref, {
-        joinedUsers: arrayUnion({
-          email: user.email,
-          name: user.displayName,
-        }),
-      });
-      alert("Join reqeust sent");
-    } catch (err) {
-      console.error("Join error:", err);
-      alert("Failed to send join request.");
-    }
-  };
+  try {
+    const ref = doc(db, "roomSwapApplications", docId);
+    const docSnap = await getDoc(ref);
+    const ownerEmail = docSnap.data().email;
+    const ownerName = docSnap.data().name;
+
+    // Add joiner info to Firestore
+    await updateDoc(ref, {
+      joinedUsers: arrayUnion({
+        email: user.email,
+        name: user.displayName,
+      }),
+    });
+
+    // Send email using EmailJS
+    await emailjs.send(
+      VITE_EMAILJS_SERVICEID,
+      VITE_EMAILJS_TEMPLATEID,
+      {
+        email: ownerEmail,
+        to_name: ownerName,
+        from_name: user.displayName,
+        from_email: user.email,
+      },
+      VITE_EMAILJS_USERID
+    );
+
+    alert("Join request sent and email notification dispatched.");
+  } catch (err) {
+    console.error("Join error:", err);
+    alert("Failed to send join request.");
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-cover bg-center bg-no-repeat bg-hostel-bg py-12 px-4 sm:px-6 lg:px-8">
@@ -167,7 +190,7 @@ const RoomSwap = () => {
                   <p className="text-sm text-gray-600">Reason: {swap.reason}</p>
                   <button
                     onClick={() => handleJoinRequest(swap.id)}
-                    className="mt-2 bg-brown-600 text-white px-4 py-1 rounded hover:bg-brown-800"
+                    className="bg-primary text-white px-6 py-2 rounded-md hover:bg-buttonhover transition"
                   >
                     Join Request
                   </button>
@@ -176,6 +199,8 @@ const RoomSwap = () => {
             </ul>
           )}
         </div>
+        <MyApplications />
+
       </div>
     </div>
   );
