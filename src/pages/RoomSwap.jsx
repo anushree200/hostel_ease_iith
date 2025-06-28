@@ -71,7 +71,6 @@ const RoomSwap = () => {
     const ownerEmail = docSnap.data().email;
     const ownerName = docSnap.data().name;
 
-    // Add joiner info to Firestore
     await updateDoc(ref, {
       joinedUsers: arrayUnion({
         email: user.email,
@@ -79,7 +78,6 @@ const RoomSwap = () => {
       }),
     });
 
-    // Send email using EmailJS
     await emailjs.send(
       VITE_EMAILJS_SERVICEID,
       VITE_EMAILJS_TEMPLATEID,
@@ -95,7 +93,7 @@ const RoomSwap = () => {
     alert("Join request sent and email notification dispatched.");
   } catch (err) {
     console.error("Join error:", err);
-    alert("Failed to send join request.");
+    alert("Failed to send join reqeust.");
   }
 };
 
