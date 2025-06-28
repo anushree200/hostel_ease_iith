@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
 const navLinks = [
+  { to: "/", label: "Home" },
   { to: "/raise-complaint", label: "Raise Complaint" },
   { to: "/my-complaints", label: "My Complaints" },
   { to: "/room-swap", label: "Room Swap" },

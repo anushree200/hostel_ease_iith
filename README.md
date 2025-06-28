@@ -1,12 +1,176 @@
-# React + Vite
+# 🏠 Hostel Ease – Smooth Functioning of Hostels
+A modern web app designed for students and hostel office staff to manage complaints, room swap requests, and hostel-wide notices. Built using React and Firebase, it ensures real-time updates, secure login, and seamless user experience.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## ✨ Features
+## 👩‍🎓 Student Portal
 
-Currently, two official plugins are available:
+Raise and track complaints
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Request room swaps
 
-## Expanding the ESLint configuration
+View hostel notices
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🏢 Admin Portal
+
+View and manage all complaints
+
+Update complaint statuses
+
+Post notices (to a specific hostel or all hostels)
+
+## 🔒 Secure Authentication
+
+Only @iith.ac.in accounts allowed
+
+Role-based access (user or admin)
+
+## ⚡ Real-Time Firestore Updates
+
+Complaints and notices update live for all users
+
+## 🚀 Getting Started
+1. Clone the Repository
+```
+git clone https://github.com/yourusername/hostel-ease.git
+cd hostel-ease
+```
+2. Install Dependencies
+```
+npm install
+```
+## Firebase Setup
+### Create a Firebase Project
+Go to Firebase Console
+Click “Add project” and follow the instructions
+
+### Register Your Web App
+Click the Web (</>) icon in Firebase Console
+Register your app and copy the Firebase config object
+
+### Enable Authentication
+Go to Authentication > Sign-in method
+Enable Google sign-in
+
+### Enable Firestore
+Go to Firestore Database
+Click Create database
+Choose Test Mode for development
+
+### Add Your Firebase Config
+Create src/utils/firebase.js:
+```
+import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID",
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+const db = getFirestore(app);
+
+export { app, auth, provider, db };
+```
+### Firestore Collections Structure
+Collection	Required Fields
+users	email, role (user or admin)
+complaints	hostel, description, status, timestamp, issueType, roomOrPod, uid, name, email
+notices	title, content, hostels (array, e.g., ["Block A"] or ["all"]), timestamp
+roomSwapApplications	email, name, hostel, currentRoom, reason, joinedUsers, timestamp
+
+### Set Admin Users
+In Firestore users collection, manually set:
+```
+{
+  "role": "admin"
+}
+```
+For example, assign to hosteloffice@iith.ac.in.
+
+### Create Firestore Indexes
+You'll be prompted to create indexes when needed. Common ones:
+complaints: hostel + timestamp (descending)
+notices: hostels (array-contains-any) + timestamp (descending)
+my complaints: uid + timestamp (descending)
+Just click the provided link in the console error to auto-create.
+
+### Security Rules (Recommended for Production)
+Go to Firestore > Rules and replace with:
+```
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if request.auth != null
+                         && request.auth.token.email.matches('^.+@iith\\.ac\\.in$');
+    }
+
+    match /complaints/{complaintId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null;
+      allow update: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
+    }
+
+    match /notices/{noticeId} {
+      allow read: if request.auth != null;
+      allow create, update, delete: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
+    }
+
+    match /users/{userId} {
+      allow read: if request.auth.uid == userId;
+      allow write: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
+    }
+  }
+}
+```
+## 💻 Run the App
+```
+npm run dev
+```
+## 🔑 Portal Access
+Student Portal: http://localhost:5173/login
+Admin Portal: http://localhost:5173/admin/login
+(Login with an email having role: "admin")
+
+## 📁 Project Structure
+```
+src/
+├── pages/           # User-side pages
+├── admin/           # Admin-specific pages
+├── components/      # Reusable UI components (Navbar, Footer, etc.)
+├── context/         # Context providers for Auth/Admin
+└── utils/           # Firebase config and helpers
+```
+## 📦 Packages Used
+React – Frontend framework
+React Router DOM – Routing
+Firebase – Auth + Firestore
+Tailwind CSS – UI Styling
+Font Awesome – Icons
+
+## 🖌️ Custom Styling Palette
+Tailwind CSS extended colors used:
+```
+colors: {
+  primary: "#7C3A7E",
+  secondary: "#FFD6E0",
+  accent: "#FFB454",
+  background: "#FFF7ED",
+  card: "#FFFFFF",
+  buttonhover: "#5C2552",
+  textprimary: "#3D2C29",
+  textsecondary: "#7C3A7E",
+  textAccent: "#FFB454",
+  success: "#B7A16A",
+  error: "#E4576E",
+}
+```
