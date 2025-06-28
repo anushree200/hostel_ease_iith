@@ -5,7 +5,6 @@ import { db } from "../utils/firebase";
 import {
   collection,
   addDoc,
-  getDocs,
   onSnapshot,
   doc,
   updateDoc,
