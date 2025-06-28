@@ -79,15 +79,15 @@ const RoomSwap = () => {
     });
 
     await emailjs.send(
-      VITE_EMAILJS_SERVICEID,
-      VITE_EMAILJS_TEMPLATEID,
+      import.meta.env.VITE_EMAILJS_SERVICEID,
+      import.meta.env.VITE_EMAILJS_TEMPLATEID,
       {
         email: ownerEmail,
         to_name: ownerName,
         from_name: user.displayName,
         from_email: user.email,
       },
-      VITE_EMAILJS_USERID
+      import.meta.env.VITE_EMAILJS_USERID
     );
 
     alert("Join request sent and email notification dispatched.");
